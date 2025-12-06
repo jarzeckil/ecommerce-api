@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:15-alpine  # Lekka wersja bazy
+    container_name: postgres
+    ports:
+      - "5432:5432" # Mapowanie portu: TwójKomputer:Kontener
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: mtab_db
+    volumes:
+    - postgres_data:/var/lib/postgresql/data # Aby dane przetrwały restart kontenera
+
+volumes:
+  postgres_data:
