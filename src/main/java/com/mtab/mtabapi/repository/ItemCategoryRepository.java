@@ -1,6 +1,6 @@
-package com.mtab.mtabapp.repository;
+package com.mtab.mtabapi.repository;
 
-import com.mtab.mtabapp.entity.ItemCategory;
+import com.mtab.mtabapi.entity.ItemCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ItemCategoryRepository extends JpaRepository<ItemCategory, Long> {

@@ -1,6 +1,6 @@
-package com.mtab.mtabapp.repository;
+package com.mtab.mtabapi.repository;
 
-import com.mtab.mtabapp.entity.Order;
+import com.mtab.mtabapi.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {

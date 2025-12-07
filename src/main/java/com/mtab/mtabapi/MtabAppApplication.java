@@ -1,4 +1,4 @@
-package com.mtab.mtabapp;
+package com.mtab.mtabapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

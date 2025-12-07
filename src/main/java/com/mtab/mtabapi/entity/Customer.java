@@ -1,4 +1,4 @@
-package com.mtab.mtabapp.entity;
+package com.mtab.mtabapi.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,15 +6,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "customers")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemCategory {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String name;
+
+    @Column(nullable = true)
+    private String surname;
+
+    @Column(nullable = false)
+    private String emailAddress;
+
 }

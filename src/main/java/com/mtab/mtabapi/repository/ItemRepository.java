@@ -1,6 +1,6 @@
-package com.mtab.mtabapp.repository;
+package com.mtab.mtabapi.repository;
 
-import com.mtab.mtabapp.entity.Item;
+import com.mtab.mtabapi.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

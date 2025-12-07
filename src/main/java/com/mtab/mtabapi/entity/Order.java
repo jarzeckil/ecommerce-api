@@ -1,4 +1,4 @@
-package com.mtab.mtabapp.entity;
+package com.mtab.mtabapi.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

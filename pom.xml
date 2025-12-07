@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mtab</groupId>
-    <artifactId>mtab-app</artifactId>
+    <artifactId>mtab-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mtab-app</name>
-    <description>mtab-app</description>
+    <name>mtab-api</name>
+    <description>mtab-api</description>
     <url/>
     <licenses>
         <license/>
