@@ -18,10 +18,17 @@ public class Item {
     @Column(nullable = false)
     private String name;
 
+
     @Column(nullable = false)
     private double price;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = true)
     private ItemCategory category;
+
+    public Item(String name, double price, ItemCategory category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
 }

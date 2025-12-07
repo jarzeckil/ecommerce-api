@@ -17,4 +17,8 @@ public class ItemCategory {
 
     @Column(nullable = false)
     private String name;
+
+    public ItemCategory(String name) {
+        this.name = name;
+    }
 }
