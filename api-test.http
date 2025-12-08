@@ -1,0 +1,12 @@
+GET http://localhost:8080/items
+
+###
+GET http://localhost:8080/items?categoryId=2
+
+###
+GET http://localhost:8080/items/3
+
+###
+GET http://localhost:8080/items/2137
+
+#TODO test POST
