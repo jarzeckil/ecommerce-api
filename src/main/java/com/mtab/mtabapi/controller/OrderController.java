@@ -30,6 +30,6 @@ public class OrderController {
     public ResponseEntity<String> handleException(IllegalArgumentException e){
         log.warn("Error while validating order: {}", e.getMessage());
 
-        return ResponseEntity.badRequest().body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }
