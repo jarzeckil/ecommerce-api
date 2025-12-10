@@ -6,19 +6,29 @@ This project demonstrates a clean architecture approach using **Java** and **Spr
 
 ## 🚀 Key Features
 
+### Core Business Logic
 * **Transactional Order Processing:** Implements atomic operations using `@Transactional` to ensure that orders and their line items are persisted together or rolled back entirely in case of failure.
 * **Historical Price Freezing:** Solves the classic e-commerce problem of changing catalog prices. The system snapshots the price of an item at the moment of purchase, preserving the order history integrity.
-* **RESTful Architecture:** Follows standard REST conventions for resource management (GET, POST).
 * **Advanced ORM:** Utilizes Hibernate/JPA for complex entity mapping, including `OneToMany` and bidirectional relationships.
-* **Containerized Environment:** Fully dockerized database setup for easy deployment and development.
+
+### Quality Assurance & Security
+* **Robust Input Validation:** Utilizes `Jakarta Validation` (Hibernate Validator) to ensure data integrity at the controller entry point. Protects the API from invalid IDs, negative quantities, or malformed requests before they reach business logic.
+* **Centralized Exception Handling:** Implements `@RestControllerAdvice` to transform uncaught exceptions and validation errors into standardized, user-friendly JSON error responses (avoiding raw stack traces in responses).
+* **Unit Testing:** Business logic is verified using **JUnit 5** and **Mockito**, ensuring service methods handle edge cases (like missing customers or products) correctly in isolation.
+
+### DevOps & Infrastructure
+* **Containerized Environment:** Fully dockerized database setup. The `docker-compose.yaml` configuration ensures a consistent development environment identical to production, eliminating "works on my machine" issues.
+* **CI/CD Pipeline:** Integrated **GitHub Actions** workflow that automatically compiles the code and runs the test suite on every push to the main branch, ensuring code quality and build stability.
 * **Automated Documentation:** Integrated **Swagger/OpenAPI** for real-time API exploration.
 
 ## 🛠️ Tech Stack
 
 * **Language:** Java 21
-* **Framework:** Spring Boot 3 (Spring Web, Spring Data JPA)
-* **Database:** PostgreSQL 15
-* **Tools:** Docker & Docker Compose, Maven, Lombok, Swagger UI
+* **Framework:** Spring Boot 3 (Spring Web, Spring Data JPA, Validation)
+* **Database:** PostgreSQL 15 (Production/Dev), H2 (Testing)
+* **Testing:** JUnit 5, Mockito
+* **DevOps:** Docker & Docker Compose, GitHub Actions
+* **Tools:** Maven, Lombok, Swagger UI
 
 ## 🏗️ Architecture & Database Model
 
@@ -37,11 +47,14 @@ The system is built around a normalized relational database schema consisting of
 * Java JDK 17 or higher
 * Maven (optional, wrapper included)
 
+### Why Docker?
+This project uses Docker to orchestrate the PostgreSQL database. This allows you to run the application without installing and configuring a local database server manually. It guarantees that the database version and configuration match the application's requirements perfectly.
+
 ### Installation
 
 1.  **Clone the repository**
     ```bash
-    git clone [https://github.com/jarzeckil/ecommerce-api.git]
+    git clone [https://github.com/jarzeckil/ecommerce-api.git](https://github.com/jarzeckil/ecommerce-api.git)
     cd ecommerce-api
     ```
 
@@ -58,6 +71,7 @@ The system is built around a normalized relational database schema consisting of
     ```
 
 The server will start on port `8080`.
+
 *Note: The application includes a `DataSeeder` that will automatically populate the database with sample products and customers upon the first launch.*
 
 ## 🔌 API Documentation
@@ -92,5 +106,26 @@ Once the application is running, you can access the interactive Swagger UI to te
   ]
 }
 ```
-# TODO
-- add tests
+## 🧪 Testing
+
+### Unit Tests
+The project includes a suite of unit tests focusing on the `OrderService`. These tests use **Mockito** to mock Repositories, allowing for fast verification of business logic (e.g., price freezing, customer validation) without spinning up the full Spring Context.
+
+To run the unit tests, execute:
+```bash
+./mvnw test
+```
+### Integration Tests
+*Planned:* End-to-end integration tests using `@SpringBootTest` and an in-memory H2 database are planned to verify the full request lifecycle from Controller to Database.
+
+## 💡 Learning Outcomes
+
+Building this project provided deep practical insights into modern backend development:
+
+* **Spring Context & IoC:** Gained a solid understanding of Dependency Injection and how Spring manages bean lifecycles.
+* **Database Transactions:** Learned how `@Transactional` proxies work to guarantee data consistency across multiple database tables (ACID principles).
+* **DTO Pattern:** Understood the importance of separating database Entities from Data Transfer Objects (DTOs) for security and API versioning.
+* **Input Validation & Exception Handling:** Learned how to sanitize user input using Jakarta Validation and how to implement a global exception handler to provide clean API error responses.
+* **Docker & Containerization:** Learned how to define infrastructure as code using Docker Compose to create reproducible development environments.
+* **Testing Strategy:** Learned the difference between Unit and Integration testing and how to use Mocks to isolate components.
+* **CI/CD:** Configured a GitHub Actions pipeline to automate the build and test process, enforcing code quality standards on every commit.
