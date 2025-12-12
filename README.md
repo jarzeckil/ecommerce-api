@@ -1,5 +1,12 @@
 # E-Commerce Order Management API
 
+[![Java CI with Maven](https://github.com/jarzeckil/ecommerce-api/actions/workflows/maven.yml/badge.svg)](https://github.com/jarzeckil/ecommerce-api/actions/workflows/maven.yml)
+
+![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
 A robust, transactional RESTful API designed to handle e-commerce operations, focusing on product catalog management and secure order processing.
 
 This project demonstrates a clean architecture approach using **Java** and **Spring Boot**, with a strong emphasis on data integrity, ACID transactions, and proper handling of Many-to-Many relationships with historical attributes.
