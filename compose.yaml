@@ -1,16 +1,37 @@
+version: '3.8'
 
 services:
   postgres-db:
-    image: postgres:15-alpine  # Lekka wersja bazy
+    image: postgres:15-alpine
     container_name: postgres
     ports:
-      - "5432:5432" # Mapowanie portu: TwójKomputer:Kontener
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mtab_db
     volumes:
-    - postgres_data:/var/lib/postgresql/data # Aby dane przetrwały restart kontenera
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mtab-network
+  app:
+    build: .
+    container_name: mtab-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mtab_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres-db
+    networks:
+      - mtab-network
 
 volumes:
   postgres_data:
+
+networks:
+  mtab-network:
+    driver: bridge
