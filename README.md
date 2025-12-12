@@ -116,7 +116,13 @@ To run the unit tests, execute:
 ./mvnw test
 ```
 ### Integration Tests
-*Planned:* End-to-end integration tests using `@SpringBootTest` and an in-memory H2 database are planned to verify the full request lifecycle from Controller to Database.
+End-to-end integration tests are implemented using `@SpringBootTest` and an in-memory **H2 database**. These tests verify the entire request lifecycle—from the REST Controller, through the Service layer, down to the Database persistence—ensuring all components interact correctly without requiring a running PostgreSQL container.
+
+**Key scenarios covered:**
+* **Happy Path:** Placing a valid order via `MockMvc` and verifying it persists in the H2 database.
+* **Error Handling:** Verifying that invalid input (e.g., negative quantity) returns `400 Bad Request` and proper JSON error messages.
+* **Data Integrity:** Ensuring `@Transactional` works correctly and rolls back data between tests to maintain a clean state.
+
 
 ## 💡 Learning Outcomes
 
