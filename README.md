@@ -1,7 +1,9 @@
 # E-Commerce Order Management API
 
+[![Java CI with Maven](https://github.com/jarzeckil/ecommerce-api/actions/workflows/maven.yml/badge.svg)](https://github.com/jarzeckil/ecommerce-api/actions/workflows/maven.yml)
+
 ![Java](https://img.shields.io/badge/Java-21-orange?logo=java&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.0-6DB33F?logo=spring&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0-6DB33F?logo=spring&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-316192?logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?logo=docker&logoColor=white)
 
@@ -43,12 +45,29 @@ Ensuring that an Order is never created if a Line Item fails validation.
 - **Solution:** Strict `@Transactional` boundaries at the Service layer.
 - **Outcome:** If any part of the order processing fails (e.g., validation error, db connection), the entire transaction rolls back. No "ghost orders" in the database.
 
-## 🔧 Technical Challenges & Solutions
+## 🔧 Technical Challenges, Solutions & Decisions
 
-### Challenge: Global Error Handling
+### Challenge: Global Error Handling and Data Validation
 
-**Problem:** Default Spring Boot errors expose stack traces and internal structure to the client.
-**Solution:** Built a centralized `@RestControllerAdvice` to catch exceptions (like `EntityNotFound` or `ValidationException`) and map them to a standardized JSON error structure.
+**Problem:** Default Spring Boot errors expose stack traces and internal structure to the client. Handling validation deep in the business logic.
+**Solution:** 
+- Built a centralized `@RestControllerAdvice` to catch exceptions (like `EntityNotFound` or `ValidationException`) and map them to a standardized JSON error structure.
+- Used Jakarta Validation to reject bad requests early.
+
+### Challenge: Making the application portable
+
+**Problem** Setting up a database, build configuration and 'works on my machine' problem.
+**Solution**
+- created a Multi-Stage Docker Build.
+- created a dependency between API and PostgreSQL using `docker compose` - database has to be up and working before the app tries to connect.
+(note: had to specifically handle container startup order using `depends_on` to ensure the API doesn't crash, because the database was't ready.)
+
+### Challenge: Maintaining code stability
+
+**Problem** Quick fixes that break the whole app.
+**Solution**
+- configured GitHub Actions pipeline. Every push triggers a clean build and runs all the tests.
+
 
 ## 📦 How to Run
 
